@@ -37,10 +37,8 @@ namespace NirvanaInfluencerMarketing.Controllers
 
             var json = JsonConvert.SerializeObject(Requestdata);
             var requestContent = new StringContent(json, Encoding.UTF8, "application/json");
-            var result = adzuHttpClient.HttpPostAsync(requestContent, token, baseUrl, "SearchInfluencer").GetAwaiter().GetResult();
-            SearchInfluencerResponseDto st = new SearchInfluencerResponseDto();
-            var res = JsonConvert.DeserializeObject<SearchInfluencerResponseDto>(result);
-            return res;
+            var result = adzuHttpClient.HttpPostAsync(requestContent, token, baseUrl).GetAwaiter().GetResult();
+            return JsonConvert.DeserializeObject<SearchInfluencerResponseDto>(result);
 
         }
 

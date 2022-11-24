@@ -10,7 +10,8 @@ namespace NirvanaInfluencerMarketing.Models
 {
     public class AdzuHttpClient
     {
-        public async Task<string> GetAsync(string baseUrl, string accessToken)
+
+        public async Task<string> HttpGetAsync(string baseUrl, string accessToken)
         {
             var httpClient = new HttpClient();
             httpClient.DefaultRequestHeaders.Clear();
@@ -23,7 +24,7 @@ namespace NirvanaInfluencerMarketing.Models
             return result;
         }
 
-        public async Task<string> HttpPostAsync(HttpContent requestContent, string accessToken, string baseUrl, string methodName)
+        public async Task<string> HttpPostAsync(HttpContent requestContent, string accessToken, string baseUrl)
         {
             var httpClient = new HttpClient();
             httpClient.DefaultRequestHeaders.Clear();
@@ -39,5 +40,23 @@ namespace NirvanaInfluencerMarketing.Models
 
             return data;
         }
+
+        public async Task<string> HttpPostAsyncwithoutBody(string accessToken, string baseUrl)
+        {
+            var httpClient = new HttpClient();
+            httpClient.DefaultRequestHeaders.Clear();
+            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + accessToken);
+
+            HttpResponseMessage response = httpClient.PostAsync(baseUrl,null).GetAwaiter().GetResult();
+            var data = "";
+            if (response.StatusCode == HttpStatusCode.OK || response.StatusCode == HttpStatusCode.Created)
+            {
+                data = await response.Content.ReadAsStringAsync();
+            }
+
+            return data;
+        }
+
     }
 }
