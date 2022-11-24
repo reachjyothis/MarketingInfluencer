@@ -29,13 +29,13 @@ namespace NirvanaInfluencerMarketing.Controllers
         }
 
         [HttpPost]
-        public SearchInfluencerResponseDto SearchInfluencer(SearchInfluencerRequestDto data)
+        public SearchInfluencerResponseDto SearchInfluencer(SearchInfluencerRequestDto Requestdata, string ChannelType)
         {
             AdzuHttpClient adzuHttpClient = new AdzuHttpClient();
-            string baseUrl = _configuration["AppSettings:BaseUrl"] + "/youtube/search";
+            string baseUrl = _configuration["AppSettings:BaseUrl"] + ChannelType + "/search";
             string token = _configuration["AppSettings:Token"];
 
-            var json = JsonConvert.SerializeObject(data);
+            var json = JsonConvert.SerializeObject(Requestdata);
             var requestContent = new StringContent(json, Encoding.UTF8, "application/json");
             var result = adzuHttpClient.HttpPostAsync(requestContent, token, baseUrl, "SearchInfluencer").GetAwaiter().GetResult();
             SearchInfluencerResponseDto st = new SearchInfluencerResponseDto();
