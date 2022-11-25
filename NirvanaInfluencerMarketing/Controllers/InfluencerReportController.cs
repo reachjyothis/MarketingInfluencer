@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -16,6 +17,7 @@ namespace NirvanaMarketingInfluencer.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [EnableCors]
     public class InfluencerReportController : ControllerBase
     {
         private readonly ILogger<InfluencerReportController> _logger;
@@ -45,6 +47,7 @@ namespace NirvanaMarketingInfluencer.Controllers
 
             return "Test";
         }
+
         [Route("GenerateReport/{ChannelType}/{UserId}")]
         [HttpPost]
         public ReportInfluencerPDF GenerateReport(string ChannelType, string UserId)
@@ -54,7 +57,16 @@ namespace NirvanaMarketingInfluencer.Controllers
             string token = _configuration["AppSettings:Token"];
 
             var result = adzuHttpClient.HttpPostAsyncwithoutBody( token, baseUrl).GetAwaiter().GetResult();
-            return JsonConvert.DeserializeObject<ReportInfluencerPDF>(result);
+            if (result == "")
+            {
+                return new ReportInfluencerPDF();
+            }
+            else
+            {
+
+                return JsonConvert.DeserializeObject<ReportInfluencerPDF>(result);
+            }
+
         }
     }
 }

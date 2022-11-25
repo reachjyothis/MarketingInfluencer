@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -17,6 +18,7 @@ namespace NirvanaInfluencerMarketing.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [EnableCors]
     public class SearchInfluencerController : ControllerBase
     {
         private readonly ILogger<SearchInfluencerController> _logger;
@@ -28,8 +30,10 @@ namespace NirvanaInfluencerMarketing.Controllers
             _configuration = configuration;
         }
 
+
         [Route("SearchInfluencer/{ChannelType}")]
         [HttpPost]
+        [EnableCors]
         public SearchInfluencerResponseDto SearchInfluencer(string ChannelType,SearchInfluencerRequestDto Requestdata)
         {
             AdzuHttpClient adzuHttpClient = new AdzuHttpClient();

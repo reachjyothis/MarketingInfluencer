@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Net.Http.Headers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,7 +33,18 @@ namespace NirvanaInfluencerMarketing
                 c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "Nirvana API", Version = "v1" });
             });
             services.AddCors(options => options.AddDefaultPolicy(
-                builder => builder.AllowAnyOrigin()));
+                builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
+
+            //services.AddCors(options =>
+            //{
+            //    options.AddDefaultPolicy(
+            //        builder =>
+            //        {
+            //            builder.WithOrigins("http://localhost:8080/", "http://localhost:4200")
+            //                                .AllowAnyHeader()
+            //                                .AllowAnyMethod();
+            //        });
+            //});
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -55,6 +67,7 @@ namespace NirvanaInfluencerMarketing
             app.UseAuthorization();
 
             app.UseCors();
+            //app.UseCors(policy => policy.WithHeaders(HeaderNames.CacheControl));
 
             app.UseEndpoints(endpoints =>
             {
