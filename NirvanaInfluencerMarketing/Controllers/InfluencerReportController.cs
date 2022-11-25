@@ -26,16 +26,25 @@ namespace NirvanaMarketingInfluencer.Controllers
             _logger = logger;
             _configuration = configuration;
         }
-        //[HttpGet]
-        //public GetInflucncerReportResponse GetReport(string ChannelType, string UserId)
-        //{
-        //    AdzuHttpClient adzuHttpClient = new AdzuHttpClient();
-        //    string baseUrl = _configuration["AppSettings:BaseUrl"] + ChannelType + "/profile/" + UserId + "/report";
-        //    string token = _configuration["AppSettings:Token"];
+        [HttpGet]
+        public string GetReport(string ChannelType, string UserId)
+        {
+            try
+            {
+                AdzuHttpClient adzuHttpClient = new AdzuHttpClient();
+                string baseUrl = _configuration["AppSettings:BaseUrl"] + ChannelType + "/profile/" + UserId + "/report";
+                string token = _configuration["AppSettings:Token"];
 
-        //    var result = adzuHttpClient.HttpGetAsync(baseUrl, token).GetAwaiter().GetResult();
-        //    return JsonConvert.DeserializeObject<GetInflucncerReportResponse>(result);
-        //}
+                var result = adzuHttpClient.HttpGetAsync(baseUrl, token).GetAwaiter().GetResult();
+                //return JsonConvert.DeserializeObject<GetInflucncerReportResponse>(result);
+            }
+            catch (Exception)
+            {
+
+            }
+
+            return "Test";
+        }
         [HttpPost]
         public ReportInfluencerPDF GenerateReport(string ChannelType, string UserId)
         {

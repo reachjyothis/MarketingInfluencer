@@ -28,8 +28,9 @@ namespace NirvanaInfluencerMarketing.Controllers
             _configuration = configuration;
         }
 
+        [Route("SearchInfluencer/{ChannelType}")]
         [HttpPost]
-        public SearchInfluencerResponseDto SearchInfluencer(SearchInfluencerRequestDto Requestdata, string ChannelType)
+        public SearchInfluencerResponseDto SearchInfluencer(string ChannelType,SearchInfluencerRequestDto Requestdata)
         {
             AdzuHttpClient adzuHttpClient = new AdzuHttpClient();
             string baseUrl = _configuration["AppSettings:BaseUrl"] + ChannelType + "/search";
