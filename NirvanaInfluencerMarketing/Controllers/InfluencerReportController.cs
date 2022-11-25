@@ -45,6 +45,7 @@ namespace NirvanaMarketingInfluencer.Controllers
 
             return "Test";
         }
+        [Route("GenerateReport/{ChannelType}/{UserId}")]
         [HttpPost]
         public ReportInfluencerPDF GenerateReport(string ChannelType, string UserId)
         {
