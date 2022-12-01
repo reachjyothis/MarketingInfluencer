@@ -35,16 +35,7 @@ namespace NirvanaInfluencerMarketing
             services.AddCors(options => options.AddDefaultPolicy(
                 builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
 
-            //services.AddCors(options =>
-            //{
-            //    options.AddDefaultPolicy(
-            //        builder =>
-            //        {
-            //            builder.WithOrigins("http://localhost:8080/", "http://localhost:4200")
-            //                                .AllowAnyHeader()
-            //                                .AllowAnyMethod();
-            //        });
-            //});
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
